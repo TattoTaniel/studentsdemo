@@ -7,6 +7,7 @@ public class Main {
         System.out.println("www");
 
         System.out.println("Perfect Past");
+        System.out.println("Cherry-pic");
 
     }
 }
