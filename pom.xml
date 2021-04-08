@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.noirix</groupId>
-    <artifactId>testjd2maven</artifactId>
+    <artifactId>studentsdemo</artifactId>
     <version>1.0.20210401213700</version>
 
     <packaging>jar</packaging>
