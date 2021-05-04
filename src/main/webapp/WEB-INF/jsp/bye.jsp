@@ -1,8 +1,7 @@
-<html>
 <head>
     <title>Bye!</title>
 </head>
-<body>
-Students Demo application - Bye page .))
+<div>Student</div>
+<div>${userName}</div>
 </body>
 </html>
