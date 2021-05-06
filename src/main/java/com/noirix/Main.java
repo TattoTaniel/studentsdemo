@@ -1,5 +1,6 @@
 package com.noirix;
 
+import com.noirix.domain.User;
 import com.noirix.repository.UserRepository;
 import com.noirix.repository.impl.UserRepositoryImpl;
 
@@ -7,9 +8,9 @@ public class Main {
     public static void main(String[] args) {
         UserRepository userRepository = new UserRepositoryImpl();
 // Find all users
-//        for (User user : userRepository.findAll()) {
-//            System.out.println(user);
-//        }
+        for (User user : userRepository.findAll()) {
+            System.out.println(user);
+        }
 
         //Find one
 //        try {
@@ -30,6 +31,11 @@ public class Main {
 
         //Check function call
         // System.out.println(userRepository.getUserExpensiveCarPrice(1));
+
+        //Update
+
+
+        //Delete
     }
 
 }

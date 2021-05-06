@@ -14,7 +14,7 @@ public class User {
 
     private String surname;
 
-    private Date birthDate;
+    private Date birthDate = new Date(System.currentTimeMillis());
 
     private String login;
 
