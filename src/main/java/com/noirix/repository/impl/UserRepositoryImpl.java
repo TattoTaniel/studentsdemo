@@ -1,26 +1,31 @@
 package com.noirix.repository.impl;
 
+import com.noirix.beans.DatabaseProperties;
 import com.noirix.domain.User;
 import com.noirix.exception.NoSuchEntityException;
 import com.noirix.repository.UserRepository;
-import com.noirix.util.DatabasePropertiesReader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.noirix.util.DatabasePropertiesReader.*;
+import static com.noirix.repository.UserColumn.*;
 
+//@Component
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private DatabasePropertiesReader reader = DatabasePropertiesReader.getInstance();
+    @Autowired
+    @Qualifier("databaseProperties")
 
-    public static final String ID = "id";
-    public static final String NAME = "name";
-    public static final String SURNAME = "surname";
-    public static final String BIRTH_DATE = "birth_date";
-    public static final String LOGIN = "login";
-    public static final String WEIGHT = "weight";
+    //@Inject
+    //@Named - JSR-330
+    private DatabaseProperties properties;
+    // = getAnnotationSpringContext().getBean(DatabaseProperties.class); - will work with @Autowired
+    // = getAnnotationSpringContext().getBean("databaseProperties", DatabaseProperties.class); - will work with @Autowired + @Qualifier
 
     @Override
     public List<User> findAll() {
@@ -33,15 +38,15 @@ public class UserRepositoryImpl implements UserRepository {
         ResultSet rs;
 
         try {
-            Class.forName(reader.getProperty(DATABASE_DRIVER_NAME));
+            Class.forName(properties.getDriverName());
         } catch (ClassNotFoundException e) {
             System.err.println("JDBC Driver Cannot be loaded!");
             throw new RuntimeException("JDBC Driver Cannot be loaded!");
         }
 
-        String jdbcURL = reader.getProperty(DATABASE_URL);
-        String login = reader.getProperty(DATABASE_LOGIN);
-        String password = reader.getProperty(DATABASE_PASSWORD);
+        String jdbcURL = properties.getUrl();
+        String login = properties.getLogin();
+        String password = properties.getPassword();
 
         try {
             connection = DriverManager.getConnection(jdbcURL, login, password);
@@ -77,15 +82,15 @@ public class UserRepositoryImpl implements UserRepository {
         ResultSet rs;
 
         try {
-            Class.forName(reader.getProperty(DATABASE_DRIVER_NAME));
+            Class.forName(properties.getDriverName());
         } catch (ClassNotFoundException e) {
             System.err.println("JDBC Driver Cannot be loaded!");
             throw new RuntimeException("JDBC Driver Cannot be loaded!");
         }
 
-        String jdbcURL = reader.getProperty(DATABASE_URL);
-        String login = reader.getProperty(DATABASE_LOGIN);
-        String password = reader.getProperty(DATABASE_PASSWORD);
+        String jdbcURL = properties.getUrl();
+        String login = properties.getLogin();
+        String password = properties.getPassword();
 
         try {
             connection = DriverManager.getConnection(jdbcURL, login, password);
@@ -121,15 +126,15 @@ public class UserRepositoryImpl implements UserRepository {
         PreparedStatement statement;
 
         try {
-            Class.forName(reader.getProperty(DATABASE_DRIVER_NAME));
+            Class.forName(properties.getDriverName());
         } catch (ClassNotFoundException e) {
             System.err.println("JDBC Driver Cannot be loaded!");
             throw new RuntimeException("JDBC Driver Cannot be loaded!");
         }
 
-        String jdbcURL = reader.getProperty(DATABASE_URL);
-        String login = reader.getProperty(DATABASE_LOGIN);
-        String password = reader.getProperty(DATABASE_PASSWORD);
+        String jdbcURL = properties.getUrl();
+        String login = properties.getLogin();
+        String password = properties.getPassword();
 
         try {
             connection = DriverManager.getConnection(jdbcURL, login, password);
@@ -171,7 +176,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> findUsersByQuery(String query) {
+    public List<User> findUsersByQuery(Integer limit, String query) {
         return null;
     }
 
@@ -184,15 +189,15 @@ public class UserRepositoryImpl implements UserRepository {
         ResultSet rs;
 
         try {
-            Class.forName(reader.getProperty(DATABASE_DRIVER_NAME));
+            Class.forName(properties.getDriverName());
         } catch (ClassNotFoundException e) {
             System.err.println("JDBC Driver Cannot be loaded!");
             throw new RuntimeException("JDBC Driver Cannot be loaded!");
         }
 
-        String jdbcURL = reader.getProperty(DATABASE_URL);
-        String login = reader.getProperty(DATABASE_LOGIN);
-        String password = reader.getProperty(DATABASE_PASSWORD);
+        String jdbcURL = properties.getUrl();
+        String login = properties.getLogin();
+        String password = properties.getPassword();
 
         try {
             connection = DriverManager.getConnection(jdbcURL, login, password);
@@ -208,5 +213,20 @@ public class UserRepositoryImpl implements UserRepository {
             System.err.println(e.getMessage());
             throw new RuntimeException("SQL Issues!");
         }
+    }
+
+    @Override
+    public void batchInsert(List<User> users) {
+
+    }
+
+    @Override
+    public void addOne(User entity) {
+
+    }
+
+    @Override
+    public void save(List<User> entities) {
+
     }
 }
